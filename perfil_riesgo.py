@@ -21,7 +21,7 @@ def get_result(score):
 
 def send_email(user_email, score, result):
     subject = "Nuevo resultado del Test de Cartera Ideal"
-   body = f"""
+    body = f"""
     El siguiente usuario ha realizado el test de perfil de riesgo.
 
     Email: {user_email}
