@@ -21,13 +21,14 @@ def get_result(score):
 
 def send_email(user_email, score, result):
     subject = "Nuevo resultado del Test de Cartera Ideal"
-    body = f"""
+   body = f"""
     El siguiente usuario ha realizado el test de perfil de riesgo.
 
     Email: {user_email}
     Resultado: {round(score, 2)} / 5
     Recomendación: {result}
     """
+
     msg = MIMEText(body)
     msg["Subject"] = subject
     msg["From"] = SMTP_USER
