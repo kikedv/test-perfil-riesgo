@@ -3,11 +3,11 @@ import smtplib
 from email.mime.text import MIMEText
 
 # --- CONFIGURACIÓN EMAIL ---
-ADMIN_EMAIL = "noresponder@school.socairepatrimonios.com"
-SMTP_SERVER = "smtp.mailgun.org"
-SMTP_PORT = 465
-SMTP_USER = "noresponder@school.socairepatrimonios.com"
-SMTP_PASS = ""
+ADMIN_EMAIL = ""kikedv@gmail.com
+SMTP_SERVER = "smtp.gmail.com"
+SMTP_PORT = 587
+SMTP_USER = "kikedv@gmail.com"
+SMTP_PASS = "E11io110183"
 
 # --- FUNCIONES DE LÓGICA ---
 def get_score(responses):
