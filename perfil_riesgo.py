@@ -3,7 +3,7 @@ import smtplib
 from email.mime.text import MIMEText
 
 # --- CONFIGURACIÓN EMAIL ---
-ADMIN_EMAIL = ""kikedv@gmail.com
+ADMIN_EMAIL = "kikedv@gmail.com"
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
 SMTP_USER = "kikedv@gmail.com"
