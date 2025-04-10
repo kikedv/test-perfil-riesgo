@@ -11,6 +11,17 @@ st.markdown("""
         .block-container {
             padding: 2rem 2rem 2rem 2rem;
         }
+        h1 {
+            color: #222222;
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+        }
+        h2 {
+            font-size: 1.4rem;
+            color: #444444;
+            margin-top: 0.5rem;
+            margin-bottom: 2rem;
+        }
         label {
             font-size: 1.2rem !important;
             font-weight: 500 !important;
@@ -113,7 +124,7 @@ def get_score(responses):
 
     return total_score / num_questions
 
-# Resultado según puntuación
+# Función para mostrar el resultado
 def get_result(score):
     if score >= 4.5:
         return "Tu perfil es **muy agresivo**. Te recomendamos las estrategias: **Agresiva y Dinámica**."
@@ -128,6 +139,10 @@ def get_result(score):
 
 # Interfaz del test
 def main():
+    st.title("Test para conocer tu cartera ideal")
+    st.markdown("<h2>¿Quieres saber qué estrategia de inversión se adapta mejor a ti? Responde a estas 10 preguntas y ¡descúbrelo!</h2>", unsafe_allow_html=True)
+    st.markdown("---")
+
     responses = {}
     responses["Edad"] = st.number_input("¿Qué edad tienes?", min_value=0, max_value=120, value=35)
     responses["Personas a cargo"] = st.radio("¿Tienes personas a tu cargo?", ["Sí", "No"]) == "Sí"
