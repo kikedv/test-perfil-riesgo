@@ -1,15 +1,6 @@
 import streamlit as st
-import smtplib
-from email.mime.text import MIMEText
 
-# --- CONFIGURACIÓN DEL EMAIL ---
-ADMIN_EMAIL = "tucorreo@tudominio.com"      # Cambia esto por tu email
-SMTP_SERVER = "smtp.gmail.com"
-SMTP_PORT = 587
-SMTP_USER = "turemitente@gmail.com"         # Tu email de envío
-SMTP_PASS = "tu_contraseña_o_app_password"  # Usa contraseña de aplicación si es Gmail
-
-# --- ESTILOS CSS ---
+# Estilos CSS personalizados
 st.markdown("""
     <style>
         html, body, [class*="css"]  {
@@ -49,32 +40,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- FUNCIÓN PARA ENVIAR EMAIL ---
-def send_email(user_email, score, result):
-    subject = "Nuevo resultado del Test de Cartera Ideal"
-    body = f"""\
-El siguiente usuario ha realizado el test de perfil de riesgo.
-
-Email: {user_email}
-Resultado: {round(score, 2)} / 5
-Recomendación: {result}
-"""
-    msg = MIMEText(body)
-    msg["Subject"] = subject
-    msg["From"] = SMTP_USER
-    msg["To"] = ADMIN_EMAIL
-
-    try:
-        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
-            server.starttls()
-            server.login(SMTP_USER, SMTP_PASS)
-            server.send_message(msg)
-        return True
-    except Exception as e:
-        print("Error al enviar correo:", e)
-        return False
-
-# --- CÁLCULO DEL PERFIL DE RIESGO ---
+# Función para calcular el perfil de riesgo
 def get_score(responses):
     total_score = 0
     num_questions = 10
@@ -158,6 +124,7 @@ def get_score(responses):
 
     return total_score / num_questions
 
+# Función para mostrar el resultado
 def get_result(score):
     if score >= 4.5:
         return "Tu perfil es **muy agresivo**. Te recomendamos las estrategias: **Agresiva y Dinámica**."
@@ -170,7 +137,7 @@ def get_result(score):
     else:
         return "Tu perfil es **conservador**. Te recomendamos las estrategias: **Conservadora y Moderada**."
 
-# --- INTERFAZ ---
+# Interfaz del test
 def main():
     st.title("Test para conocer tu cartera ideal")
     st.markdown("<h2>¿Quieres saber qué estrategia de inversión se adapta mejor a ti? Responde a estas 10 preguntas y ¡descúbrelo!</h2>", unsafe_allow_html=True)
@@ -207,23 +174,12 @@ def main():
     ])
 
     st.markdown("---")
-    user_email = st.text_input("Introduce tu correo electrónico para recibir tu perfil y recomendación:")
 
-    if st.button("Enviar mi perfil"):
+    if st.button("Ver mi perfil de riesgo"):
         score = get_score(responses)
         result = get_result(score)
-
-        if user_email:
-            success = send_email(user_email, score, result)
-            if success:
-                st.success("Tu perfil ha sido enviado correctamente. ¡Gracias!")
-                st.markdown(f"### Resultado: {round(score, 2)} / 5")
-                st.markdown(result)
-            else:
-                st.error("Hubo un error al enviar tu perfil. Por favor, intenta más tarde.")
-        else:
-            st.warning("Por favor, introduce tu correo electrónico.")
+        st.markdown(f"### Resultado: {round(score, 2)} / 5")
+        st.markdown(result)
 
 if __name__ == "__main__":
     main()
-
